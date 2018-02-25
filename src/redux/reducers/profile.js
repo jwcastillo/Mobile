@@ -1,5 +1,5 @@
 import Neon from '@cityofzion/neon-js';
-import { BALANCE_CHANGED, UPDATING_BALANCE } from '../actions';
+import { BALANCE_CHANGED, UPDATING_BALANCE, UPDATE_WALLET } from '../actions';
 import { createWallet } from '../../utils';
 
 
@@ -26,7 +26,20 @@ const INITIAL_STATE = {
 };
 
 const profile = (state = INITIAL_STATE, action) => {
+  console.log(action);
+  console.log(action.payload);
   switch (action.type) {
+    case UPDATE_WALLET:
+      return {
+        ...state,
+        address: Neon.get.addressFromScriptHash(
+          Neon.get.scriptHashFromPublicKey(
+            Neon.get.publicKeyFromPrivateKey(
+              action.payload)
+          )
+        ),
+        wallet: createWallet(action.payload)
+      };
     case BALANCE_CHANGED:
       return {
         ...state,

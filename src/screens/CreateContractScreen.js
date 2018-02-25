@@ -62,6 +62,7 @@ class CreateContract extends React.Component {
     this.carrierContarct = new CarrierContract('TestNet', 
       this.props.scriptHash, this.props.wallet._privateKey);
     
+    
     this.state = {
       addV: 0,
       mulV: 1,
@@ -90,40 +91,61 @@ class CreateContract extends React.Component {
     });
     
     this.setState({ isLoading: true, mes: '' });
-    if (this.state.deposit === 0) {
-      console.log('Without depositing');
-      this.carrierContarct.addContract(0, Converter.asciiToHex(info), this.builder.program)
-        .then(() => this.setState({ 
+
+    this.amount = this.carrierContarct.getContractsAmount()
+    .then(amount => {
+      if (amount <= 13) {
+        if (this.state.deposit === 0) {
+          console.log('Without depositing');
+          
+          this.carrierContarct.addContract(0, Converter.asciiToHex(info), this.builder.program)
+            .then(() => this.setState({ 
+              isLoading: false, 
+              mes: 'Success', 
+              disableSubmit: true 
+            }))
+            .catch(() => this.setState({ 
+              isLoading: false, 
+              mes: 'Something went wrong. Please, try later.', 
+              disableSubmit: true 
+            }));
+        } else {
+          console.log('With depositing');
+          this.carrierContarct.addContractWithDeposit(0, Converter.asciiToHex(info), 
+            this.builder.program, Converter.reverseHex(this.props.clientHash), this.state.deposit)
+            .then(v => {
+              console.log(v);
+              this.setState({ 
+                isLoading: false, 
+                mes: 'Success',
+                disableSubmit: true
+              });
+            })
+            .catch(err => {
+              console.log(err);
+              this.setState({ 
+                isLoading: false, 
+                mes: 'Something went wrong. Please, try later.',
+                disableSubmit: true 
+              });
+            });
+        }
+      } else {
+        this.setState({ 
           isLoading: false, 
-          mes: 'Success', 
+          mes: 'Your limit of contracts has expired. Use another wallet account',
           disableSubmit: true 
-        }))
-        .catch(() => this.setState({ 
-          isLoading: false, 
-          mes: 'Something went wrong. Please, try later.', 
-          disableSubmit: true 
-        }));
-    } else {
-      console.log('With depositing');
-      this.carrierContarct.addContractWithDeposit(0, Converter.asciiToHex(info), 
-        this.builder.program, Converter.reverseHex(this.props.clientHash), this.state.deposit)
-        .then(v => {
-          console.log(v);
-          this.setState({ 
-            isLoading: false, 
-            mes: 'Success',
-            disableSubmit: true
-          });
-        })
-        .catch(err => {
-          console.log(err);
-          this.setState({ 
-            isLoading: false, 
-            mes: 'Something went wrong. Please, try later.',
-            disableSubmit: true 
-          });
         });
-    }
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      this.setState({ 
+        isLoading: false, 
+        mes: 'Something went wrong. Please, try later.',
+        disableSubmit: true 
+      });
+    });
   }
 
   renderSlideContent = i => {

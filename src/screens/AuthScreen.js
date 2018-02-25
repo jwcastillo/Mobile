@@ -8,7 +8,7 @@ import {
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { facebookLogin } from '../redux/actions';
-import { MAIN_SCREEN_KEY } from '../screens';
+import { MAIN_SCREEN_KEY, SCANNER_SCREEN_KEY } from '../screens';
 
 class Auth extends React.Component {
   componentDidMount() {
@@ -36,7 +36,7 @@ class Auth extends React.Component {
       <View style={styles.container}>
         <View>
           <Text style={styles.text}>
-            This is a demo version. There are a couple of limitations
+            This is a demo version. There are couple of limitations
           </Text>
           <Text style={styles.hint}>
             You can't connect to real device, an emulator is used instead
@@ -47,12 +47,22 @@ class Auth extends React.Component {
           <Text style={[styles.hint, { marginBottom: 10 }]}>
             There is only one client for convenience
           </Text>
-          <Button
-            raised
-            title='Try demo'
-            buttonStyle={styles.button}
-            onPress={this.onFacebookLogin}
-          />
+
+          <View>
+            <Button
+              raised
+              title='Scan private key to login'
+              buttonStyle={[styles.button]}
+              containerViewStyle={{ marginBottom: 10 }}
+              onPress={() => this.props.navigation.navigate(SCANNER_SCREEN_KEY)}
+            />
+            <Button
+              raised
+              title='Try demo. Use default account'
+              buttonStyle={styles.button}
+              onPress={() => this.props.navigation.navigate(MAIN_SCREEN_KEY)}
+            />
+          </View>
         </View>
       </View>
     );

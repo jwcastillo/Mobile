@@ -12,3 +12,4 @@ export const UPDATE_CONTRACT_INFO = 'update_contract_info';
 //profile
 export const BALANCE_CHANGED = 'balance_changed';
 export const UPDATING_BALANCE = 'updating_balance';
+export const UPDATE_WALLET = 'update_wallet';

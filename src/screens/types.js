@@ -11,3 +11,4 @@ export const CONTRACTS_SCREEN_KEY = 'contracts list';
 export const CONTRACTS_MANAGE_SCREEN_KEY = 'contracts manage';
 export const CONTRACT_DETAILS_SCREEN_KEY = 'contract details';
 export const EMULATION_SCREEN_KEY = 'emulation_screen_key';
+export const SCANNER_SCREEN_KEY = 'scanner_screen_key';

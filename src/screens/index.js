@@ -9,5 +9,6 @@ export * from './ContractsScreen';
 export * from './ContractsManageScreen';
 export * from './ContractDetailsScreen';
 export * from './EmulationScreen';
+export * from './ScannerScreen';
 export * from './types';
 

@@ -17,6 +17,7 @@ import {
   ContractsManageScreen, CONTRACTS_MANAGE_SCREEN_KEY,
   ContractDetailsScreen, CONTRACT_DETAILS_SCREEN_KEY,
   EmulationScreen, EMULATION_SCREEN_KEY,
+  ScannerScreen, SCANNER_SCREEN_KEY,
   MAIN_SCREEN_KEY
 } from '../screens';
 import SideMenu from './SideMenu';
@@ -39,15 +40,27 @@ const DrawerStack = DrawerNavigator({
           [CONTRACTS_MANAGE_SCREEN_KEY]: { screen: ContractsManageScreen },
           [CONTRACT_DETAILS_SCREEN_KEY]: { screen: ContractDetailsScreen },
           [EMULATION_SCREEN_KEY]: { screen: EmulationScreen }
-        }, { headerMode: 'none' })
+        }, { 
+          headerMode: 'none',
+          lazyLoad: true,
+        })
       }
-    }, { headerMode: 'none' })
+    }, { 
+      headerMode: 'none',
+      lazyLoad: true,
+    })
   },
   [CONNECT_SCREEN_KEY]: {
     screen: StackNavigator({
       [CONNECT_SCREEN_KEY]: { screen: ConnectScreen },
       [BLUETOOTH_SCREEN_KEY]: { screen: BluetoothScreen }
-    }, { headerMode: 'none' })
+    }, { 
+      headerMode: 'none',
+      lazyLoad: true,
+    })
+  },
+  [SCANNER_SCREEN_KEY]: {
+    screen: ScannerScreen
   },
   [WATCH_SCREEN_KEY]: {
     screen: WatchScreen
@@ -55,7 +68,8 @@ const DrawerStack = DrawerNavigator({
 }, 
 {
   drawerWidth: 300,
-  contentComponent: SideMenu
+  contentComponent: SideMenu,
+  lazyLoad: true
 }
 );
 
@@ -86,8 +100,9 @@ const Navigator = TabNavigator({
 {
   ...DISABLE_SWIPE_NAV_OPTION,
   tabBarPosition: 'bottom',
+  lazyLoad: true,
   navigationOptions: {
-    tabBarVisible: false
+    tabBarVisible: false,
   },
 });
 

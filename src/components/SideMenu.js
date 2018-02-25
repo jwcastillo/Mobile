@@ -26,7 +26,9 @@ class SideMenu extends Component {
     };
   }
 
+  
   componentDidMount() {
+    console.log('SideMenu loaded');
     this.props.updateBalance(this.props.address, this.props.clientAddress, this.props.scriptHash);
   }
 
