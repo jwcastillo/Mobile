@@ -59,9 +59,6 @@ class CreateContract extends React.Component {
   constructor(props) {
     super(props);
     this.builder = new ContractBuilder();
-    this.carrierContarct = new CarrierContract('TestNet', 
-      this.props.scriptHash, this.props.wallet._privateKey);
-    
     
     this.state = {
       addV: 0,
@@ -84,6 +81,10 @@ class CreateContract extends React.Component {
   }
 
   deployContract = () => {
+    this.carrierContarct = new CarrierContract('TestNet', 
+      this.props.scriptHash, this.props.wallet._privateKey);
+    
+    console.log(this.carrierContarct);
     const info = JSON.stringify({
       deposit: this.state.deposit,
       formula: this.getFormula(),

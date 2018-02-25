@@ -15,9 +15,6 @@ class SideMenu extends Component {
   constructor(props) {
     super(props);
 
-
-    this.tokenManager = new Token('TestNet', this.props.scriptHash, 
-      this.props.wallet._privateKey);
     this.state = {
       index: 0,
       value: 1,
@@ -38,6 +35,9 @@ class SideMenu extends Component {
   }
 
   mintTokens = () => {
+    this.tokenManager = new Token('TestNet', this.props.scriptHash, 
+      this.props.wallet._privateKey);
+      
     this.setState({ isLoading: true, mes: '' });
     this.tokenManager.mintToken(1)
       .then(v => { 
