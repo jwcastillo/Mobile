@@ -1,8 +1,17 @@
+import Neon from '@cityofzion/neon-js';
 import { BALANCE_CHANGED, UPDATING_BALANCE } from '../actions';
 import { createWallet } from '../../utils';
 
+
+const privKey = '2aeb004a218208b8f8c2917d8129117db45aacb6a5d16b4ded74159b987ee928';
+
 const INITIAL_STATE = {
-  address: 'Aew7K2CAEatnD4dpTZz2SN1Ntnex4V3wsK',
+  address: Neon.get.addressFromScriptHash(
+    Neon.get.scriptHashFromPublicKey(
+      Neon.get.publicKeyFromPrivateKey(
+        privKey)
+    )
+  ),
   isUpdating: false,
   balance: {
     GAS: 0,
@@ -10,7 +19,7 @@ const INITIAL_STATE = {
     EC: 0,
     ClientEC: 0
   },
-  wallet: createWallet('5dc7768d667f42a9d0bdbbf7c84295274f1bed7d71422aaa0317fa0c67abe5c0'),
+  wallet: createWallet(privKey),
   scriptHash: '7ddf3c47eb6ca27e472067c110f4f435478b5fff',
   clientHash: 'fbebea200e8ef5fbdff9403aec68d184605da434',
   clientAddress: 'ALaDgjgwm9vN43YsYLKWtumcNCceyJjdrZ'

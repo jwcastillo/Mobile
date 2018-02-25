@@ -3,8 +3,8 @@ import {
   View, 
   Text, 
   StyleSheet,
-  Dimensions
-  //Platform, 
+  Dimensions,
+  Platform
   //BackHandler
 } from 'react-native';
 import { FormInput, Button, Slider } from 'react-native-elements';
@@ -88,7 +88,7 @@ class CreateContract extends React.Component {
       formula: this.getFormula(),
       ...this.state.info
     });
-
+    
     this.setState({ isLoading: true, mes: '' });
     if (this.state.deposit === 0) {
       console.log('Without depositing');
@@ -137,6 +137,7 @@ class CreateContract extends React.Component {
             {
               <View>
                 <FormInput 
+                  textAlign='center'
                   disabled={disabled[0]}
                   spellCheck={false}
                   autoCorrect={false}
@@ -148,6 +149,7 @@ class CreateContract extends React.Component {
                 />
                 <FormInput 
                   disabled={disabled[0]}
+                  textAlign='center'
                   spellCheck={false}
                   autoCorrect={false}
                   underlineColorAndroid='#0288D1'
@@ -157,6 +159,7 @@ class CreateContract extends React.Component {
                   }
                 />
                 <FormInput 
+                  textAlign='center'
                   disabled={disabled[0]}
                   spellCheck={false}
                   autoCorrect={false}
@@ -167,6 +170,7 @@ class CreateContract extends React.Component {
                   }
                 />
                 <FormInput 
+                  textAlign='center'
                   disabled={disabled[0]}
                   spellCheck={false}
                   autoCorrect={false}
@@ -177,6 +181,7 @@ class CreateContract extends React.Component {
                   }
                 />
                 <FormInput 
+                  textAlign='center'
                   disabled={disabled[0]}
                   spellCheck={false}
                   autoCorrect={false}
@@ -352,14 +357,17 @@ class CreateContract extends React.Component {
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: 'white' }}>
-        <Button
-          title={this.state.isLoading ? '' : 'Back'}
-          loading={this.state.isLoading}
-          //disabled={!isOk}
-          color="grey"
-          buttonStyle={styles.backButton}
-          onPress={() => this.props.navigation.navigate(CONTRACTS_SCREEN_KEY)} 
-        />
+        {
+          Platform.OS === 'android' ? 
+            <Button
+              title={this.state.isLoading ? '' : 'Back'}
+              loading={this.state.isLoading}
+              //disabled={!isOk}
+              color="grey"
+              buttonStyle={styles.backButton}
+              onPress={() => this.props.navigation.navigate(CONTRACTS_SCREEN_KEY)} 
+            /> : undefined
+        }
         <Slides 
           data={data}
           renderSlide={this.renderSlide}

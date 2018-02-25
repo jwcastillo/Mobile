@@ -60,7 +60,7 @@ class ContractsManage extends React.Component {
   }
 
   renderContent = item => {
-    const emulateButton = item.status.code === 0 ?
+    const emulateButton = item.status.code === 0 && item.formula !== undefined ?
       (<Button
         rounded
         title='emulate'
@@ -72,9 +72,8 @@ class ContractsManage extends React.Component {
         }
       />) : undefined;
 
-    return (
-      <View style={(item.status.code === 0 ? styles.additional : styles.additionalAnother)}>
-        <Button
+    const detailsButton = item.formula !== undefined ? 
+        (<Button
           rounded
           title='details'
           color='#00aced'
@@ -83,7 +82,13 @@ class ContractsManage extends React.Component {
           onPress={() =>
             this.props.navigation.navigate(CONTRACT_DETAILS_SCREEN_KEY)
           }
-        />
+        />) : undefined;
+    return (
+      <View 
+        style={(item.status.code === 0 && item.formula !== undefined ? 
+          styles.additional : styles.additionalAnother)}
+      >
+        {detailsButton}
         {emulateButton}
       </View>
     );
@@ -92,6 +97,8 @@ class ContractsManage extends React.Component {
   renderMain = (item, onToggled, content) => (
     <TouchableWithoutFeedback 
       onPress={() => {
+        console.log(item.id);
+        console.log(item);
         onToggled(item.id);
         this.props.onUpdateContractInfo(item);
       }}

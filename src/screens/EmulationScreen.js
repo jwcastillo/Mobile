@@ -33,7 +33,9 @@ class Emulation extends React.Component {
   }
 
   submitMeasure = () => { 
-    console.log(Converter.numTo4byteHex(this.state.value));
+    console.log('submitmesure');
+    console.log(this.props);
+    console.log(this.props.contractInfo.id);
     this.setState({ isLoading: true });
     
     this.carrierContarct.invokeContract(0, 

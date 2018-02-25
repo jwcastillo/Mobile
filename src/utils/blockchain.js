@@ -31,7 +31,11 @@ const getBalance = (net, address, clientAddress, scriptHash) => new Promise(
   (res, rej) => {
     const client = new rpc.RPCClient(net);
     const token = new Token(net, scriptHash);
-    Promise.all([token.getBalance(clientAddress), token.getBalance(address), client.getAccountState(address)])
+    Promise.all([
+        token.getBalance(clientAddress), 
+        token.getBalance(address), 
+        client.getAccountState(address)
+      ])
       .then(balances => {
         const EC = balances[1];
         const ClientEC = balances[0];
@@ -60,15 +64,6 @@ const getBalance = (net, address, clientAddress, scriptHash) => new Promise(
       })
       .catch(err => rej(err));
   });
-
-const IsValidJson = json => {
-  try {
-      JSON.parse(json);
-  } catch (e) {
-      return false;
-  }
-  return true;
-};
 
 const createWallet = pk => new wallet.Account(pk);
 
@@ -105,7 +100,6 @@ class Token {
                 scriptHash 
               }
             ];
-            console.log('There 1')
             if (operation === Token.OPERATIONS.MINT) {
               intents.push(
                 { 
@@ -114,14 +108,10 @@ class Token {
                   scriptHash 
                 });
             }
-            console.log('There 2')
             const invoke = { operation, args, scriptHash };
             const unsignedTx = Neon.create.invocationTx(balances, intents, invoke, gas);
-            console.log('There 3')
             const signedTx = Neon.sign.transaction(unsignedTx, privKey);
-            console.log('There 4')
             const hexTx = Neon.serialize.tx(signedTx);
-            console.log('There 5')
     
             return rpc.queryRPC(CONST.DEFAULT_RPC.TEST, {
               method: 'sendrawtransaction', params: [hexTx], id: 1
@@ -204,9 +194,10 @@ class CarrierContract {
 
   //should I reverse Converter.numToHex(i)?
   getContractKey(i) {
+    const postrfix = Converter.numToHex(i);
+    console.log(postrfix);
     return CarrierContract.PREFIXES.PP + 
-      Converter.reverseHex(this.userScriptHash) + 
-      Converter.numToHex(i);
+      Converter.reverseHex(this.userScriptHash) + postrfix;
   }
 
   getContractCounterKey() {
@@ -229,16 +220,28 @@ class CarrierContract {
   }
 
   
-  parseInfoObject(str) {
+  parseInfoObject = str => {
     const code = parseInt(Converter.reverseHex(str.slice(0, 8)), 16);
-    const converted = Converter.hexToAscii(str);
-    const start = converted.indexOf('{');
-    const end = converted.indexOf('}'); //this work till there is no nested objects
-    const res = converted.slice(start, end + 1);
-    return {
-      status: STATUS[code],
-      ...JSON.parse(res)
-    };
+    const jsonLen = parseInt(Converter.reverseHex(str.slice(8, 16)), 16);
+    const json = Converter.hexToAscii(str.slice(16, 16 + (jsonLen * 2)));
+    json.replace("'", '');
+
+    try {
+      const obj = JSON.parse(json);
+      return {
+        status: STATUS[code],
+        ...obj
+      };
+    } catch (err) {
+      return {
+        status: STATUS[code],
+        name: 'NaN',
+        description: 'NaN',
+        from: 'NaN',
+        to: 'NaN',
+        goods: 'Nan'
+      };
+    }
   }
 
 
@@ -307,7 +310,9 @@ class CarrierContract {
           }
           rej('bad result');
         })
-        .catch(err => rej(err));
+        .catch(err => {
+          rej(err);
+        });
     });
   }
 }

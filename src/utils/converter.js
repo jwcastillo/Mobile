@@ -10,8 +10,8 @@ const Converter = {
     return out;
   },
 
-  numToHex: num => {
-    let hex = num.toString(16);
+  numToHex: (num, rank = 16) => {
+    let hex = num.toString(rank);
     if (hex.length % 2 !== 0) {
       hex = `0${hex}`;
     }
