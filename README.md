@@ -1,10 +1,14 @@
-## Elight
+### Elight
 
 Elight is the project designed to automate thermo logistics processes.
 
 It includes the possibility of interaction between temperature data logger device, mobile app and blockchain, where Smart Contracts implementation is the key feature.
 
 Check out our Usage Document [here](https://marlyonya.gitbooks.io/elight/content/).
+
+## How to get started
+
+To get started download the application Expo for [Android](https://play.google.com/store/apps/details?id=host.exp.exponent&referrer=www) or [iOS](https://itunes.apple.com/app/apple-store/id982107779?ct=www&mt=8). Then go to the [ElightMobile web site](https://expo.io/@sergeyankarenko/elightmobile) and scan the QR-code with your mobile Expo app.
 
 You can see basic functionality of the app prototype below.
 
