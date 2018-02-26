@@ -1,4 +1,4 @@
-### Elight
+# Elight
 
 Elight is the project designed to automate thermo logistics processes.
 
