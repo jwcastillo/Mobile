@@ -93,8 +93,9 @@ class CreateContract extends React.Component {
     
     this.setState({ isLoading: true, mes: '' });
 
-    this.amount = this.carrierContarct.getContractsAmount()
+    this.carrierContarct.getContractsAmount()
     .then(amount => {
+      console.log('amount', amount);
       if (amount <= 13) {
         if (this.state.deposit === 0) {
           console.log('Without depositing');

@@ -289,6 +289,11 @@ class CarrierContract {
     return new Promise((res, rej) => {
       this.getStorage(key)
         .then(response => {
+          if (response.result == null) {
+            res(0);
+            return;
+          }
+          
           if (response.result !== undefined && typeof response.result === 'string') {
             res(parseInt(response.result, 16));
             return;

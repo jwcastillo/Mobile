@@ -68,6 +68,7 @@ class SideMenu extends Component {
         EC, 
         ClientEC 
       }, 
+      err,
       address, 
       isUpdating, 
       clientAddress, 
@@ -76,17 +77,28 @@ class SideMenu extends Component {
     const load = isUpdating ? 
       <ActivityIndicator style={styles.button} size="small" color='#00aced' /> : 
       <Loader onPress={() => this.props.updateBalance(address, clientAddress, scriptHash)} />; 
-    
+    console.log('asddgadgadgad', err);
     const mes = this.state.index === 0 ? (
-      <Text 
+      <View>
+        <Text 
+          style={{ 
+            marginBottom: 5, 
+            fontSize: 13, 
+            textAlign: 'center' 
+          }}
+        >
+        {address}
+        </Text>
+        <Text 
         style={{ 
           marginBottom: 5, 
           fontSize: 13, 
           textAlign: 'center' 
         }}
-      >
-      {address}
-      </Text>) : 
+        >
+        {err}
+        </Text>
+      </View>) : 
       (<View>
       <Text 
         style={{ 

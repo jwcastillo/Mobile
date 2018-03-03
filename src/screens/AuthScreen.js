@@ -50,7 +50,6 @@ class Auth extends React.Component {
 
           <View>
             <Button
-              disabled
               raised
               title='Scan private key to login'
               buttonStyle={[styles.button]}
