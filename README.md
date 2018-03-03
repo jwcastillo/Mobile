@@ -25,6 +25,7 @@ You can see basic functionality of the app prototype below.
 1) Let's make a contract;
 2) Let's configure the contract then submit it;
 3) Let's check the withdrawal of deposit.
+
 <a href="https://imgflip.com/gif/25oeow"><img src="https://i.imgflip.com/25oeow.gif" title="made at imgflip.com"/></a> <a href="https://imgflip.com/gif/25oeve"><img src="https://i.imgflip.com/25oeve.gif" title="made at imgflip.com"/></a> <a href="https://imgflip.com/gif/25oewu"><img src="https://i.imgflip.com/25oewu.gif" title="made at imgflip.com"/></a>
 
 ### Fourth step: Manage your contract
